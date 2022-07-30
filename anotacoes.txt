@@ -1,0 +1,14 @@
+Amazon app clone
+
+Tema da aplicação (parte de design):
+	- class GlobalColors;
+	- class MaterialAppTheme;
+
+Configuração de rotas:
+	- Router: Adicionando propriedade "onGenerateRoute" no MaterialApp, ele substitui a propriedade routes que é estática e não permite passar argumentos.
+
+
+Features:
+	Auth - Página de autenticação
+	  
+		
