@@ -21,7 +21,7 @@ class SignupAuthService {
         type: '',
         token: '',
       );
-      String uri = "http://xxxx:3333/api/signup";
+      String uri = "http://x:3333/api/signup";
       http.Response res =
           await http.post(Uri.parse(uri), body: user.toJson(), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
