@@ -1,5 +1,8 @@
+import 'package:amazon_clone/common/utils/show_snack_bar.dart';
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_textfield.dart';
+import 'package:amazon_clone/features/auth/controllers/signup_auth_controller.dart';
+import 'package:amazon_clone/models/user_model.dart';
 import 'package:amazon_clone/themes/app_global_colors.dart';
 import 'package:amazon_clone/themes/app_text_theme.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +21,18 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  // AUTH ENUM
   Auth _auth = Auth.signup;
+
+  // KEYS
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
 
+  // CONTROLLERS
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-
+  final SignupAuthController _controller = SignupAuthController();
   @override
   void dispose() {
     _emailController.dispose();
@@ -69,16 +76,39 @@ class _AuthScreenState extends State<AuthScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
-                            hintText: 'Email', controller: _emailController),
+                          hintText: 'Email',
+                          controller: _emailController,
+                        ),
                         const SizedBox(height: 10),
                         CustomTextField(
-                            hintText: 'Password',
-                            controller: _passwordController),
+                          hintText: 'Password',
+                          controller: _passwordController,
+                        ),
                         const SizedBox(height: 10),
                         CustomTextField(
-                            hintText: 'Name', controller: _nameController),
+                          hintText: 'Name',
+                          controller: _nameController,
+                        ),
                         const SizedBox(height: 10),
-                        CustomButton(text: 'Sign Up', onTap: () {})
+                        CustomButton(
+                          text: 'Sign Up',
+                          onTap: () {
+                            if (_signUpFormKey.currentState!.validate()) {
+                              _controller.handle(
+                                context: context,
+                                user: User(
+                                  id: '',
+                                  name: _nameController.text,
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                  address: '',
+                                  type: '',
+                                  token: 'token',
+                                ),
+                              );
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
