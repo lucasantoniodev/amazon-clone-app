@@ -27,6 +27,12 @@ class CustomTextField extends StatelessWidget {
         if (value == null || value.isEmpty) {
           return '$hintText is required!';
         }
+
+        if (hintText.toLowerCase() == "password" &&
+            controller.text.length < 8) {
+          return '$hintText requires a minimum of 8  characters!';
+        }
+
         return null;
       },
     );
