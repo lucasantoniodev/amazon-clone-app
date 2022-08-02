@@ -23,7 +23,7 @@ const userSchema = new Schema({
         type: String,
         validate: {
             validator: (value) => {
-                return value.length <= 8;
+                return value.length >= 8;
             },
             message: "Please enter a long password. Minimun 8 Characters"
         }
