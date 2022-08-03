@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { CreateUserService } from "../../services/auth/create_user_service";
+import { SignupAuthService } from "../../services/auth/signup_auth_service";
 
-class CreateUserController {
+class SignupAuthController {
     async handle(request: Request, response: Response) {
         const { email, password, name } = request.body;
 
-        const userService = new CreateUserService();
+        const userService = new SignupAuthService();
         const userCreated = await userService.execute({ email, password, name });
 
         if (userCreated instanceof Error) {
@@ -16,4 +16,4 @@ class CreateUserController {
     }
 }
 
-export const createUserController = new CreateUserController()
+export const signupAuthController = new SignupAuthController()

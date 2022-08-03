@@ -8,7 +8,7 @@ type UserRequest = {
     password: string
 }
 
-export class CreateUserService {
+export class SignupAuthService {
     async execute({ email, name, password }: UserRequest): Promise<UserInterface | Error> {
 
         const userRepository = new UserRepository();
