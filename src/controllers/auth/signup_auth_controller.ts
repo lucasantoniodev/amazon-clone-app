@@ -9,7 +9,9 @@ class SignupAuthController {
         const userCreated = await userService.execute({ email, password, name });
 
         if (userCreated instanceof Error) {
-            return response.status(400).json({ message: userCreated.message });
+            return response.status(400).json({ 
+                message: userCreated.message 
+            });
         }
 
         return response.json(userCreated);

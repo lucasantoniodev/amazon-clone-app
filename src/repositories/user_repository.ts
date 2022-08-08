@@ -1,8 +1,7 @@
 import { UserInterface } from "../interfaces/user_interface";
-import { User } from "../schemas/user";
+import { User } from "../models/user";
 
 export class UserRepository {
-
     async createUser({ email, name, password }) {
         let user = new User({
             email,
@@ -12,10 +11,11 @@ export class UserRepository {
         return await user.save();
     }
 
-    async findUser(email: string): Promise<UserInterface | null> {
+    async findUser(email: string) {
         return await User.findOne({ email });
     }
 
-    
-
+    async findById(id: string) {
+        return await User.findById(id).select("-password -__v");
+    }
 }

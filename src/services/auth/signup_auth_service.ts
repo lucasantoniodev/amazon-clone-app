@@ -10,25 +10,26 @@ type UserRequest = {
 
 export class SignupAuthService {
     async execute({ email, name, password }: UserRequest): Promise<UserInterface | Error> {
-
-        const userRepository = new UserRepository();
-
-        const user = await userRepository.findUser(email);
-
-        if (user) {
-            return new Error("User with same e-mail already exists!");
-        }
-
         try {
+            const userRepository = new UserRepository();
+
+            const user = await userRepository.findUser(email);
+
+            if (user) {
+                return new Error("User with same e-mail already exists!");
+            }
             const hashedPassword = await bcryptjs.hash(password, 8);
-            
+
             const createdUser = await userRepository.createUser(
                 {
                     email,
                     name,
-                    password: hashedPassword
+                    password
                 }
             );
+            createdUser.password = hashedPassword;
+            await createdUser.save()
+            
             return createdUser
         } catch (e) {
             return new Error(e.message);

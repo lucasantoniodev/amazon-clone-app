@@ -1,26 +1,21 @@
 // IMPORTS FROM PACKAGES
 import express from "express";
-import mongoose from "mongoose";
 import { authRoutes } from "./routes/auth/auth_routes";
 import 'dotenv/config';
+
 // IMPORTS FROM OTHER FILES
+import dbConnection from '../src/database/mongoose_connect'
 
 // INIT
 const app = express();
-const DB = process.env.DATABASE_CONNECTION ??= ""
+dbConnection()
 
 app.use(express.json())
 
 app.use(authRoutes)
 
-mongoose.connect(DB).then(() => {
-    console.log("Connection sucessful!")
-}).catch((e) => {
-    console.log(e);
-});
-
-
-app.listen(3333, "0.0.0.0", () => console.log("Server is running!"));
+const port = process.env.PORT || 8080
+app.listen(parseInt(port), "0.0.0.0", () => console.log(`Server start: Listening on port ${port}...`));
 
 //Creating an API
 

@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
+
 const userSchema = new Schema({
     name: {
         required: true,
@@ -22,7 +23,7 @@ const userSchema = new Schema({
         required: true,
         type: String,
         validate: {
-            validator: (value) => {
+            validator: (value: string) => {
                 return value.length >= 8;
             },
             message: "Please enter a long password. Minimun 8 Characters"
@@ -40,3 +41,13 @@ const userSchema = new Schema({
 });
 
 export const User = mongoose.model("User", userSchema);
+
+// export const validate = (user: UserRequest) => {
+//     const schema = Joi.object({
+//         name: Joi.string().required(),
+//         email: Joi.string().required(),
+//         password: Joi.string().required()
+//     })
+
+//     return schema.validate(user)
+// }
