@@ -1,4 +1,4 @@
-import { User } from "../schemas/user";
+import { User } from "../models/user";
 export class UserInterface extends User {
 
 }

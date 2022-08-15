@@ -16,6 +16,7 @@ export class UserRepository {
     }
 
     async findById(id: string) {
-        return await User.findById(id).select("-password -__v");
+        return await User.findById(id);
+        // .select("-password -__v")
     }
 }
