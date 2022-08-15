@@ -1,6 +1,6 @@
-import 'package:amazon_clone/common/utils/show_snack_bar.dart';
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_textfield.dart';
+import 'package:amazon_clone/features/auth/controllers/signin_auth_controller.dart';
 import 'package:amazon_clone/features/auth/controllers/signup_auth_controller.dart';
 import 'package:amazon_clone/models/user_model.dart';
 import 'package:amazon_clone/themes/app_global_colors.dart';
@@ -25,14 +25,16 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
 
   // KEYS
-  final _signUpFormKey = GlobalKey<FormState>();
-  final _signInFormKey = GlobalKey<FormState>();
+  final _signupFormKey = GlobalKey<FormState>();
+  final _signinFormKey = GlobalKey<FormState>();
 
   // CONTROLLERS
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final SignupAuthController _controller = SignupAuthController();
+  final SignupAuthController _signupController = SignupAuthController();
+  final SigninAuthController _signinController = SigninAuthController();
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -72,7 +74,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   padding: const EdgeInsets.all(8),
                   color: AppGlobalColors.backgroundColor,
                   child: Form(
-                    key: _signUpFormKey,
+                    key: _signupFormKey,
                     child: Column(
                       children: [
                         CustomTextField(
@@ -93,18 +95,17 @@ class _AuthScreenState extends State<AuthScreen> {
                         CustomButton(
                           text: 'Sign Up',
                           onTap: () {
-                            if (_signUpFormKey.currentState!.validate()) {
-                              _controller.handle(
+                            if (_signupFormKey.currentState!.validate()) {
+                              _signupController.handle(
                                 context: context,
                                 user: User(
-                                  id: '',
-                                  name: _nameController.text,
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                  address: '',
-                                  type: '',
-                                  token: 'token',
-                                ),
+                                    name: _nameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                    address: '',
+                                    id: '',
+                                    type: '',
+                                    token: ''),
                               );
                             }
                           },
@@ -133,17 +134,36 @@ class _AuthScreenState extends State<AuthScreen> {
                   padding: const EdgeInsets.all(8),
                   color: AppGlobalColors.backgroundColor,
                   child: Form(
-                    key: _signUpFormKey,
+                    key: _signinFormKey,
                     child: Column(
                       children: [
                         CustomTextField(
-                            hintText: 'Email', controller: _emailController),
+                          hintText: 'Email',
+                          controller: _emailController,
+                        ),
                         const SizedBox(height: 10),
                         CustomTextField(
-                            hintText: 'Password',
-                            controller: _passwordController),
+                          hintText: 'Password',
+                          controller: _passwordController,
+                        ),
                         const SizedBox(height: 10),
-                        CustomButton(text: 'Sign In', onTap: () {})
+                        CustomButton(
+                            text: 'Sign In',
+                            onTap: () {
+                              if (_signinFormKey.currentState!.validate()) {
+                                _signinController.handle(
+                                  context: context,
+                                  user: User(
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                      address: '',
+                                      id: '',
+                                      name: '',
+                                      token: '',
+                                      type: ''),
+                                );
+                              }
+                            })
                       ],
                     ),
                   ),

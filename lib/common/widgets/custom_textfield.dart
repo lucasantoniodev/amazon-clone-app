@@ -23,9 +23,13 @@ class CustomTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.black38),
         ),
       ),
-      validator: (value) {
+      validator: (String? value) {
         if (value == null || value.isEmpty) {
           return '$hintText is required!';
+        }
+        
+        if (hintText.toLowerCase() == "email" && value.contains(' ')) {
+          return 'Caracter is invalid!';
         }
 
         if (hintText.toLowerCase() == "password" &&

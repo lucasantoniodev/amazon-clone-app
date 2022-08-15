@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class User {
   final String id;
   final String name;
@@ -34,12 +33,12 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['_id'] as String,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      password: map['password'] as String,
-      address: map['address'] as String,
-      type: map['type'] as String,
+      id: map['user']['_id'] as String,
+      name: map['user']['name'] as String,
+      email: map['user']['email'] as String,
+      password: map['user']['password'] as String,
+      address: map['user']['address'] as String,
+      type: map['user']['type'] as String,
       token: map['token'] as String,
     );
   }

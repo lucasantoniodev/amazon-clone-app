@@ -3,12 +3,32 @@ Amazon app clone
 Tema da aplicação (parte de design):
 	- class GlobalColors;
 	- class MaterialAppTheme;
+	- class AppTextTheme;
+
+Dependências:
+	- flutter_dotenv: Importar variáveis de ambiente dentro do projeto;
+	- shared_preferences: Armazenar o token no dispositivo;
+	- provider: Utilizado para facilitar a injeção de dependência e gerenciar os estados;
+
+
+Rotas de desenvolvimento da aplicação:
 
 Configuração de rotas:
 	- Router: Adicionando propriedade "onGenerateRoute" no MaterialApp, ele substitui a propriedade routes que é estática e não permite passar argumentos.
 
+Mobile:
+	- Rota de cadastrado de usuário ("/signup"):
+		- Passa os dados requisitados do back-end (nome, email e senha) pelo corpo da requisição;
 
-Features:
-	Auth - Página de autenticação
-	  
-		
+	- Rota de login ("/signin"):
+		- Passa email e senha pelo corpo da requisição, recebe do back-end o usuário e o token;
+		- Setar usuario na aplicação "userProvider" utilizando o provider;
+		- Deve armazenar o token na memória do dispositivo, neste caso estamos usando o shared_preferences;
+	
+	- Rota da home ("/"):
+		- Necessita autenticação
+
+Back-end:
+	- Rota de cadastro ("/api/signup") de usuário deve transformar a senha em um Hash e armazenar o usuário no banco de dados (MongoDB), por fim retornar o usuário cadastrado;
+	- Rota de login ("/api/signin") verifica se o usuário existe, se o usuário existir retorna o usuário e o token com o id do usuário;
+	- Rota de busca de usuário ("/api/user")
