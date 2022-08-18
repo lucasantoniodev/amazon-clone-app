@@ -5,7 +5,9 @@ class AppMaterialTheme {
   static ThemeData theme = ThemeData(
     primarySwatch: AppGlobalColors.primaryColor,
     scaffoldBackgroundColor: AppGlobalColors.backgroundColor,
-    colorScheme: const ColorScheme.light(primary: AppGlobalColors.secondaryColor),
+    colorScheme: const ColorScheme.light(
+      primary: AppGlobalColors.secondaryColor,
+    ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
       iconTheme: IconThemeData(color: AppGlobalColors.iconPrimaryColor),

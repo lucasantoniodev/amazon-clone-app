@@ -1,3 +1,4 @@
+import 'package:amazon_clone/features/account/screens/account_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/themes/app_global_colors.dart';
 import 'package:badges/badges.dart';
@@ -18,7 +19,7 @@ class _BottomBarComponentState extends State<BottomBarComponent> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const Center(child: Text("Account Page")),
+    const AccountScreen(),
     const Center(child: Text("Cart Page")),
   ];
 
